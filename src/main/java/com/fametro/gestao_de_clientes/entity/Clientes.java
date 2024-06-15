@@ -9,47 +9,51 @@ public class Clientes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private String password;
+    private String nome;
+    private String senha;
     private String email;
-    private String telephone;
+    private String telefone;
 
-    public Clientes(String name, String password, String email, String telephone) {
-        this.name = name;
-        this.password = password;
+    public Clientes(String nome, String senha, String email, String telefone) {
+        this.nome = nome;
+        this.senha = senha;
         this.email = email;
-        this.telephone = telephone;
+        this.telefone = telefone;
     }
 
-    public String getName() {
-        return name;
+    public Long getId(){
+        return id;
     }
 
-    public String getPassword() {
-        return password;
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 }
