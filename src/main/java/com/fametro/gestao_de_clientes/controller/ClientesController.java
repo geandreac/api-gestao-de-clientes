@@ -2,6 +2,7 @@ package com.fametro.gestao_de_clientes.controller;
 
 import com.fametro.gestao_de_clientes.entity.Clientes;
 import com.fametro.gestao_de_clientes.repository.ClientesRepository;
+import jdk.jfr.Experimental;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +30,8 @@ public class ClientesController {
     }
 
     @GetMapping("/{Id}")
-    public ClientesDTO getClientesById(@PathVariable Long id) {
-            Clientes clientes = clientesRepository.findById(id);
+    public ClientesDTO getClientesById(@PathVariable Long id) throws Exception {
+            Clientes clientes = clientesRepository.findById(id).orElseThrow(Exception::new);
             return ClientesDTO.fromEntity(clientes);
     }
 
@@ -41,8 +42,9 @@ public class ClientesController {
     }
 
     @PutMapping("/{Id}")
-    public ClientesDTO updateCliente(@PathVariable Long id, @RequestBody ClientesBodyDTO clientesBody){
-        Clientes clienteDB = clientesRepository.findById(id);
+    public ClientesDTO updateCliente(@PathVariable Long id, @RequestBody ClientesBodyDTO clientesBody) throws Exception{
+
+        Clientes clienteDB = clientesRepository.findById(id).orElseThrow(Exception::new);
         clienteDB.setNome(clientesBody.nome());
         clienteDB.setEmail(clientesBody.email());
         clienteDB.setSenha(clientesBody.senha());
@@ -51,8 +53,8 @@ public class ClientesController {
     }
 
     @DeleteMapping("/{Id}")
-    public ClientesDTO deleteCliente(@PathVariable Long id){
-        Clientes cliente = clientesRepository.findById(id);
+    public ClientesDTO deleteCliente(@PathVariable Long id) throws Exception {
+        Clientes cliente = clientesRepository.findById(id).orElseThrow(Exception::new);;
         clientesRepository.deleteById(id);
         return ClientesDTO.fromEntity(cliente);
     }
