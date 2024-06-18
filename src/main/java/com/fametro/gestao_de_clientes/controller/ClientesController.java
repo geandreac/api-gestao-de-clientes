@@ -29,7 +29,7 @@ public class ClientesController {
                 .toList();
     }
 
-    @GetMapping("/{Id}")
+    @GetMapping("/{id}")
     public ClientesDTO getClientesById(@PathVariable Long id) throws Exception {
             Clientes clientes = clientesRepository.findById(id).orElseThrow(Exception::new);
             return ClientesDTO.fromEntity(clientes);
@@ -41,7 +41,7 @@ public class ClientesController {
         return ClientesDTO.fromEntity(clientesRepository.save(clienteBody.toEntity()));
     }
 
-    @PutMapping("/{Id}")
+    @PutMapping("/{id}")
     public ClientesDTO updateCliente(@PathVariable Long id, @RequestBody ClientesBodyDTO clientesBody) throws Exception{
 
         Clientes clienteDB = clientesRepository.findById(id).orElseThrow(Exception::new);
@@ -52,7 +52,7 @@ public class ClientesController {
         return ClientesDTO.fromEntity(clienteDB);
     }
 
-    @DeleteMapping("/{Id}")
+    @DeleteMapping("/{id}")
     public ClientesDTO deleteCliente(@PathVariable Long id) throws Exception {
         Clientes cliente = clientesRepository.findById(id).orElseThrow(Exception::new);;
         clientesRepository.deleteById(id);
