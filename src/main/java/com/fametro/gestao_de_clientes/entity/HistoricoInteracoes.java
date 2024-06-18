@@ -11,7 +11,7 @@ public class HistoricoInteracoes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Date data;
+    private String data;
     private String tipo;
     private String descricao;
 
@@ -22,7 +22,7 @@ public class HistoricoInteracoes {
     public HistoricoInteracoes() {
     }
 
-    public HistoricoInteracoes(Date data, String tipo, String descricao, Clientes clientes) {
+    public HistoricoInteracoes(String data, String tipo, String descricao, Clientes clientes) {
         this.data = data;
         this.tipo = tipo;
         this.descricao = descricao;
@@ -33,11 +33,11 @@ public class HistoricoInteracoes {
         return id;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 
