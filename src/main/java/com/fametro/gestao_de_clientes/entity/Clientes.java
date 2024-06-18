@@ -2,6 +2,8 @@ package com.fametro.gestao_de_clientes.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "clientes")
 public class Clientes {
@@ -14,6 +16,13 @@ public class Clientes {
     private String email;
     private String telefone;
 
+    @OneToOne(optional = false)
+    @JoinColumn(name = "endereco_id")
+    private Endereco endereco;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientes")
+    private List<HistoricoInteracoes> historicoInteracoes;
+
     public Clientes(){}
 
     public Clientes(String nome, String senha, String email, String telefone) {
@@ -21,6 +30,14 @@ public class Clientes {
         this.senha = senha;
         this.email = email;
         this.telefone = telefone;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco){
+        this.endereco = endereco;
     }
 
     public Long getId(){
