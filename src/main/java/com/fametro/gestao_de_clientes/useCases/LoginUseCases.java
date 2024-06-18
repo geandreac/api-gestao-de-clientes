@@ -1,5 +1,10 @@
 package com.fametro.gestao_de_clientes.useCases;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.fametro.gestao_de_clientes.entity.Clientes;
 import com.fametro.gestao_de_clientes.entity.Usuarios;
 import com.fametro.gestao_de_clientes.repository.UsuarioRepository;
@@ -9,6 +14,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @Service
 public class LoginUseCases implements UserDetailsService {
@@ -23,11 +32,11 @@ public class LoginUseCases implements UserDetailsService {
         return usuarioRepository.findByUsername(username);
     }
 
-    public String generateToken(Clientes clientes) throws JWTCreationException{
+    public String generateToken(Usuarios usuarios) throws JWTCreationException {
         Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
         return JWT.create()
                 .withIssuer("ums-auth")
-                .withSubject(user.getEmail())
+                .withSubject(usuarios.getUsername())
                 .withExpiresAt(generateExpirationDate())
                 .sign(algorithm);
     }
@@ -36,7 +45,7 @@ public class LoginUseCases implements UserDetailsService {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-04:00"));
     }
 
-    public String validateToken(String token) throws JWTDecodeException, JWTVerificationException {
+    public String validateToken(String token) throws    JWTVerificationException {
         Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
         return JWT.require(algorithm)
                 .withIssuer("ums-auth")

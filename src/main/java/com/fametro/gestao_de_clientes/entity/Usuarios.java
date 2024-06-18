@@ -1,15 +1,16 @@
 package com.fametro.gestao_de_clientes.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
+@Entity
+@Table(name = "usuarios")
 public class Usuarios implements UserDetails {
 
     @Id
@@ -22,9 +23,11 @@ public class Usuarios implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (getCargo() == "ADMINISTRADOR") {
-            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
-        }else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        System.out.println("Entrou na Função"+ cargo);
+        if (Objects.equals(cargo, "ADMINISTRADOR")) {
+            System.out.println("Entrou no If"+ cargo);
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMINISTRADOR"), new SimpleGrantedAuthority("ROLE_USUARIO"));
+        }else return List.of(new SimpleGrantedAuthority("ROLE_USUARIO"));
     }
 
     @Override

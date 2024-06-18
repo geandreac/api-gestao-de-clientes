@@ -14,6 +14,8 @@ public class Clientes {
     private String email;
     private String telefone;
 
+    public Clientes(){}
+
     public Clientes(String nome, String senha, String email, String telefone) {
         this.nome = nome;
         this.senha = senha;
